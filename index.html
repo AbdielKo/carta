@@ -2,25 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Una Cartita para Ti 💖</title>
+  <title>Invitación Especial 💖</title>
   <style>
     body {
-      background-color: #ffe6f0;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
       padding: 50px;
-      overflow: hidden;
+      overflow-x: hidden;
+      perspective: 1000px;
     }
 
     h1 {
       color: #ff4d6d;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      text-shadow: 1px 1px 2px #ccc;
     }
 
     p {
       font-size: 1.2rem;
       color: #333;
       margin-bottom: 30px;
+      max-width: 600px;
+      margin: auto;
     }
 
     .heart {
@@ -34,12 +38,8 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-      }
+      0% { transform: translateY(100vh) rotateY(0deg); }
+      100% { transform: translateY(-100vh) rotateY(360deg); }
     }
 
     .btn {
@@ -50,23 +50,63 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      text-decoration: none;
-      transition: background 0.3s;
+      margin: 10px;
+      transition: background 0.3s, transform 0.3s;
     }
 
     .btn:hover {
       background-color: #ff1a4b;
+      transform: scale(1.05);
+    }
+
+    .formulario, .mensaje-vaquita {
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .vaquita-img {
+      width: 200px;
+      height: auto;
     }
   </style>
 </head>
 <body>
 
-  <h1>Hola, mi persona especial 💌</h1>
-  <p>Quería dedicarte esta pequeña carta con todo mi cariño... Gracias por estar en mi vida 🥹❤️</p>
+  <h1>Mi persona favorita 💌</h1>
+  <p>
+    En esta ocasión especial, quiero invitarte a un plan inolvidable...<br>
+    <em>Un poema:</em><br>
+    "Entre luces, música y emoción,<br>
+    quiero verte sonreír sin condición,<br>
+    acompáñame a la FEXCO con el corazón,<br>
+    será nuestra más dulce conexión."
+  </p>
 
-  <a class="btn" href="https://wa.me/59168604686?text=Acabo%20de%20ver%20tu%20carta%20y%20me%20encantó%20🥰" target="_blank">
-    Responder por WhatsApp 💬
-  </a>
+  <div id="pregunta">
+    <p>¿Quieres ir conmigo a la FEXCO? 🥹❤️</p>
+    <button class="btn" onclick="responder('si')">¡Sí, quiero! 💕</button>
+    <button class="btn" onclick="responder('no')">No... 😢</button>
+  </div>
+
+  <div class="mensaje-vaquita" id="vaquita">
+    <img class="vaquita-img" src="https://i.imgur.com/Yb4G5ck.png" alt="Vaquita tierna">
+    <p>Eres una vaquita 🐮✨</p>
+  </div>
+
+  <div class="formulario" id="formulario">
+    <p>¡Qué emoción! 💃 Elige hora y fecha para nuestra cita:</p>
+    <form id="formFexco" onsubmit="enviarWhatsApp(event)">
+      <input type="date" id="fecha" required><br><br>
+      <input type="time" id="hora" required><br><br>
+      <button type="submit" class="btn">Enviar a WhatsApp 📩</button>
+    </form>
+  </div>
 
   <!-- Música romántica -->
   <audio autoplay loop>
@@ -74,7 +114,6 @@
     Tu navegador no soporta audio HTML5.
   </audio>
 
-  <!-- Corazones flotando -->
   <script>
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('div');
@@ -82,6 +121,29 @@
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
       document.body.appendChild(heart);
+    }
+
+    function responder(respuesta) {
+      const vaquita = document.getElementById('vaquita');
+      const formulario = document.getElementById('formulario');
+      if (respuesta === 'si') {
+        vaquita.style.display = 'none';
+        formulario.style.display = 'block';
+      } else {
+        formulario.style.display = 'none';
+        vaquita.style.display = 'block';
+        setTimeout(() => {
+          vaquita.style.display = 'none';
+        }, 2000);
+      }
+    }
+
+    function enviarWhatsApp(event) {
+      event.preventDefault();
+      const fecha = document.getElementById('fecha').value;
+      const hora = document.getElementById('hora').value;
+      const mensaje = encodeURIComponent(`¡Hola! Ya elegí la fecha para ir a la FEXCO contigo 😍\n📅 Fecha: ${fecha}\n⏰ Hora: ${hora}`);
+      window.open(`https://wa.me/59168604686?text=${mensaje}`, '_blank');
     }
   </script>
 
