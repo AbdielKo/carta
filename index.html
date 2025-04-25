@@ -11,6 +11,7 @@
       padding: 50px;
       overflow-x: hidden;
       perspective: 1000px;
+      position: relative;
     }
 
     h1 {
@@ -24,7 +25,8 @@
       color: #333;
       margin-bottom: 30px;
       max-width: 600px;
-      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .heart {
@@ -35,6 +37,7 @@
       background-size: cover;
       animation: float 10s linear infinite;
       opacity: 0.7;
+      z-index: 0;
     }
 
     @keyframes float {
@@ -52,6 +55,7 @@
       cursor: pointer;
       margin: 10px;
       transition: background 0.3s, transform 0.3s;
+      z-index: 2;
     }
 
     .btn:hover {
@@ -68,6 +72,17 @@
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
+    }
+
+    .mensaje-vaquita {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      z-index: 5;
     }
 
     .vaquita-img {
@@ -91,11 +106,11 @@
   <div id="pregunta">
     <p>¿Quieres ir conmigo a la FEXCO? 🥹❤️</p>
     <button class="btn" onclick="responder('si')">¡Sí, quiero! 💕</button>
-    <button class="btn" onclick="responder('no')">No... 😢</button>
+    <button class="btn" id="btn-no" onclick="responder('no')">No... 😢</button>
   </div>
 
   <div class="mensaje-vaquita" id="vaquita">
-    <img class="vaquita-img" src="https://i.imgur.com/Yb4G5ck.png" alt="Vaquita tierna">
+    <img class="vaquita-img" src="https://i.imgur.com/tzGRDsA.png" alt="Vaquita tierna">
     <p>Eres una vaquita 🐮✨</p>
   </div>
 
@@ -114,6 +129,7 @@
     Tu navegador no soporta audio HTML5.
   </audio>
 
+  <!-- Corazones flotando -->
   <script>
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('div');
@@ -126,12 +142,21 @@
     function responder(respuesta) {
       const vaquita = document.getElementById('vaquita');
       const formulario = document.getElementById('formulario');
+      const botonNo = document.getElementById('btn-no');
+
       if (respuesta === 'si') {
         vaquita.style.display = 'none';
         formulario.style.display = 'block';
       } else {
-        formulario.style.display = 'none';
         vaquita.style.display = 'block';
+
+        const randomTop = Math.floor(Math.random() * (window.innerHeight - 80));
+        const randomLeft = Math.floor(Math.random() * (window.innerWidth - 100));
+
+        botonNo.style.position = 'absolute';
+        botonNo.style.top = `${randomTop}px`;
+        botonNo.style.left = `${randomLeft}px`;
+
         setTimeout(() => {
           vaquita.style.display = 'none';
         }, 2000);
