@@ -111,7 +111,6 @@
 
   <div class="mensaje-vaquita" id="vaquita">
     <img class="vaquita-img" src="Captura de pantalla 2025-04-24 215320.png" alt="Vaquita tierna">
-
     <p>Eres una vaquita 🐮✨</p>
   </div>
 
@@ -124,9 +123,9 @@
     </form>
   </div>
 
-  <!-- Música romántica -->
+  <!-- Música romántica personalizada -->
   <audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    <source src="musica.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.
   </audio>
 
@@ -150,10 +149,8 @@
         formulario.style.display = 'block';
       } else {
         vaquita.style.display = 'block';
-
         const randomTop = Math.floor(Math.random() * (window.innerHeight - 80));
         const randomLeft = Math.floor(Math.random() * (window.innerWidth - 100));
-
         botonNo.style.position = 'absolute';
         botonNo.style.top = `${randomTop}px`;
         botonNo.style.left = `${randomLeft}px`;
