@@ -12,6 +12,8 @@
       overflow-x: hidden;
       perspective: 1000px;
       position: relative;
+      border: 15px solid transparent;
+      border-image: url('https://cdn.pixabay.com/photo/2017/05/30/16/46/rose-2356982_960_720.png') 30 round;
     }
 
     h1 {
@@ -29,20 +31,31 @@
       margin-right: auto;
     }
 
-    .heart {
+    .heart, .rose {
       position: absolute;
+      animation: float 10s linear infinite;
+      z-index: 0;
+    }
+
+    .heart {
       width: 30px;
       height: 30px;
       background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
       background-size: cover;
-      animation: float 10s linear infinite;
       opacity: 0.7;
-      z-index: 0;
+    }
+
+    .rose {
+      width: 40px;
+      height: 40px;
+      background-image: url('https://cdn.pixabay.com/photo/2016/08/19/17/43/rose-1601189_960_720.png');
+      background-size: cover;
+      opacity: 0.8;
     }
 
     @keyframes float {
-      0% { transform: translateY(100vh) rotateY(0deg); }
-      100% { transform: translateY(-100vh) rotateY(360deg); }
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
     }
 
     .btn {
@@ -124,19 +137,29 @@
   </div>
 
   <!-- Música romántica personalizada -->
-  <audio autoplay loop>
+  <audio id="audio" loop>
     <source src="musica.mp3" type="audio/mpeg">
+    <source src="musica.ogg" type="audio/ogg">
     Tu navegador no soporta audio HTML5.
   </audio>
 
   <!-- Corazones flotando -->
   <script>
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 15; i++) {
       const heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
       document.body.appendChild(heart);
+    }
+
+    // Rosas flotando
+    for (let i = 0; i < 10; i++) {
+      const rose = document.createElement('div');
+      rose.classList.add('rose');
+      rose.style.left = Math.random() * 100 + 'vw';
+      rose.style.animationDuration = (Math.random() * 7 + 7) + 's';
+      document.body.appendChild(rose);
     }
 
     function responder(respuesta) {
@@ -168,6 +191,13 @@
       const mensaje = encodeURIComponent(`¡Hola! Ya elegí la fecha para ir a la FEXCO contigo 😍\n📅 Fecha: ${fecha}\n⏰ Hora: ${hora}`);
       window.open(`https://wa.me/59168604686?text=${mensaje}`, '_blank');
     }
+
+    // Función para reproducir la música después de 5 segundos
+    window.onload = function() {
+      setTimeout(function() {
+        document.getElementById('audio').play();
+      }, 5000); // Espera 5 segundos antes de reproducir la música
+    };
   </script>
 
 </body>
